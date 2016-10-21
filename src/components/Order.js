@@ -2,7 +2,7 @@ import React from 'react';
 import { formatPrice } from '../helpers';
 
 class Order extends React.Component {
-  constructor() {
+  constructor () {
     super();
     this.renderOrder = this.renderOrder.bind(this);
   }
@@ -10,13 +10,29 @@ class Order extends React.Component {
     const fish = this.props.fishes[key];
     const count = this.props.order[key];
 
+    const removeButton = <button onClick={() => this.props.removeFromOrder(key)}>
+      &#8854;
+    </button>;
+    //increment order - add's +1 to order key
+    const addOneMoreButton = <button onClick={() => this.props.incrementOrder(key)}>
+      &#8853;
+    </button>;
+
+    const removeAllButton = <button onClick={() => this.props.removeAll(key)}>
+      &#8855;
+    </button>;
+
     if (!fish || fish.status === 'unavailable') {
-      return <li key={key}> Sorry {fish ? fish.name : 'fish'} is no longer avalaible</li>
+      return <li key={key}> Sorry {fish ? fish.name : 'fish'}
+      is no longer avalaible
+      {removeButton}
+      {addOneMoreButton}
+      {removeAllButton}</li>;
     }
 
     return (
       <li key={key}>
-        <span>{count}kgs {fish.name}</span>
+        <span>{count}kgs {fish.name} {addOneMoreButton} {removeButton} {removeAllButton} </span>
         <span className='price'>
           {formatPrice(count * fish.price)}
         </span>
@@ -30,7 +46,7 @@ class Order extends React.Component {
       const count = this.props.order[key];
       const isAvailable = fish && fish.status === 'available';
       if (isAvailable) {
-        return prevTotal + (count * fish.price || 0)
+        return prevTotal + (count * fish.price || 0);
       }
       return prevTotal;
     }, 0);
