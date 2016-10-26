@@ -14,6 +14,7 @@ class Inventory extends React.Component {
       [e.target.name]: e.target.value
     };
     this.props.updateFish(key, updatedFish);
+    console.log(key, updatedFish);
   }
   renderInventory (key) {
     const fish = this.props.fishes[key];
@@ -45,6 +46,36 @@ class Inventory extends React.Component {
           <option value='avaliable'>Fresh!</option>
           <option value='unavaliable'>Sold Out!</option>
         </select>
+
+        <select
+          type='text'
+          name='onsale'
+          value={fish.onsale}
+          placeholder='On Sale?'
+          onChange={(e) => this.handleChange(e, key)}
+          >
+          <option value='yes'>On Sale</option>
+          <option value='no'>Not on Sale</option>
+        </select>
+
+        <select
+          type='text'
+          name='unit'
+          value={fish.unit}
+          placeholder='Unit Type'
+          onChange={(e) => this.handleChange(e, key)}
+          >
+          <option value='percent'>Percent</option>
+          <option value='dollars'>Dollars</option>
+        </select>
+
+        <input
+          type='text'
+          name='unitamount'
+          value={fish.unitamount}
+          placeholder='Amount'
+          onChange={(e) => this.handleChange(e, key)}
+        />
 
         <textarea
           name='desc'
